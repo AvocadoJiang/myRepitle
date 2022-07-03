@@ -1,6 +1,8 @@
 package scheduler
 
-import "myReptile/concurrent/entity"
+import (
+	"myReptile/entity"
+)
 
 type Scheduler interface {
 	//请求提交方法

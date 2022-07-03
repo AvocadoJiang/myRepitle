@@ -2,8 +2,8 @@ package engine
 
 import (
 	"fmt"
-	"myReptile/concurrent/entity"
-	"myReptile/concurrent/scheduler"
+	entity2 "myReptile/entity"
+	"myReptile/scheduler"
 )
 
 type ConcurrentEngine struct {
@@ -12,13 +12,13 @@ type ConcurrentEngine struct {
 }
 
 //总控模块
-func (e *ConcurrentEngine) Run(requests []entity.Request) {
+func (e *ConcurrentEngine) Run(requests []entity2.Request) {
 	//负责传递请求
-	in := make(chan entity.Request)
+	in := make(chan entity2.Request)
 	//配置通大佛
 	e.Scheduler.ConfigWorkerChannel(in)
 	//负责返回解析结果
-	out := make(chan entity.ParseResult)
+	out := make(chan entity2.ParseResult)
 	for i := 0; i < e.WorkerCount; i++ {
 		createWorker(in, out)
 	}
@@ -53,7 +53,7 @@ func (e *ConcurrentEngine) Run(requests []entity.Request) {
 }
 
 //创建workder 并调用worker进行请求解析
-func createWorker(in chan entity.Request, out chan entity.ParseResult) {
+func createWorker(in chan entity2.Request, out chan entity2.ParseResult) {
 	go func() {
 		for {
 			//循环获取请求

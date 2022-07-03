@@ -1,6 +1,8 @@
 package scheduler
 
-import "myReptile/concurrent/entity"
+import (
+	"myReptile/entity"
+)
 
 //简单调度器
 //多个goroutine公用一个channel

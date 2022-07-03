@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"myReptile/concurrent/51jobs/parser"
-	"myReptile/concurrent/engine"
-	"myReptile/concurrent/entity"
-	"myReptile/concurrent/scheduler"
+	"myReptile/51jobs/parser"
+	"myReptile/engine"
+	"myReptile/entity"
+	"myReptile/scheduler"
 )
 
 const seed = "https://search.51job.com/list/000000,000000,0000,00,9,99,Java,2,%d.html"
@@ -24,7 +24,8 @@ func main() {
 	}
 	//并发爬取
 	concurrentEngine := engine.ConcurrentEngine{
-		Scheduler:   &scheduler.SimpleScheduler{},
+		Scheduler: &scheduler.SimpleScheduler{},
+		//线程数
 		WorkerCount: 10,
 	}
 	concurrentEngine.Run(requests)

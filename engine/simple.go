@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"myReptile/concurrent/entity"
-	"myReptile/concurrent/fetcher"
+	"myReptile/entity"
+	"myReptile/fetcher"
 )
 
 type SimpleEngine struct {

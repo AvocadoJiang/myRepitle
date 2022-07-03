@@ -3,18 +3,18 @@ package parser
 import (
 	"encoding/json"
 	"fmt"
-	"myReptile/concurrent/51jobs/dao"
-	"myReptile/concurrent/51jobs/jsonEntity"
-	entity "myReptile/concurrent/entity"
+	"myReptile/51jobs/dao"
+	"myReptile/51jobs/jsonEntity"
+	entity2 "myReptile/entity"
 	"regexp"
 )
 
 //岗位列表解析器
-func ParseJobList(contents []byte) entity.ParseResult {
+func ParseJobList(contents []byte) entity2.ParseResult {
 	re := regexp.MustCompile(`window.__SEARCH_RESULT__ = (.*?)</script>`)
 
 	matches := re.FindAllSubmatch(contents, -1)
-	result := entity.ParseResult{}
+	result := entity2.ParseResult{}
 	db := dao.ConnectMysql()
 	defer db.Close()
 
@@ -30,11 +30,11 @@ func ParseJobList(contents []byte) entity.ParseResult {
 		for _, item := range jobListResult.EngineJds {
 			dao.AddRecord(db, item)
 			result.Items = append(result.Items, item)
-			result.Requests = append(result.Requests, entity.Request{
+			result.Requests = append(result.Requests, entity2.Request{
 				//岗位详情url
 				Url: item.JobHref,
 				//岗位详情解析器
-				ParseFunc: entity.NilParser,
+				ParseFunc: entity2.NilParser,
 			})
 		}
 
